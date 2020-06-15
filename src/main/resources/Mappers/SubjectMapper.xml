@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkg.dao.ISubjectDao">
+    <resultMap type="com.mkg.domain.Subject" id="Subject">
+        <id column="s_id" property="subject_id"/>
+        <result column="usubject_id" property="subject_id"/>
+        <result column="uopen_id" property="open_id"/>
+        <result column="usubject_name" property="subject_name"/>
+    </resultMap>
+
+    <insert id="InsertIntoSubject" parameterType="com.mkg.domain.Subject">
+        insert into subject(open_id,subject_name) values(#{open_id},#{subject_name})
+    </insert>
+
+    <select id="SelectSubBySubName"  parameterType="com.mkg.domain.Subject" resultType="com.mkg.domain.Subject">
+        select * from subject where open_id=#{open_id} and subject_name=#{subject_name}
+    </select>
+
+    <select id="SelectAll" parameterType="java.lang.String" resultMap="Subject">
+        select * from subject where open_id=#{open_id}
+    </select>
+
+    <select id="SelectSubCounts" parameterType="java.lang.String" resultType="int">
+        select count(*) from subject where open_id=#{open_id}
+    </select>
+
+    <delete id="DeleteSubBySubName" parameterType="Map">
+        delete from subject where subject_name=#{subject_name} and open_id=#{open_id}
+    </delete>
+
+</mapper>

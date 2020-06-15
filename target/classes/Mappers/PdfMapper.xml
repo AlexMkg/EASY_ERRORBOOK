@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkg.dao.IPdfDao">
+    <resultMap type="com.mkg.domain.Pdf" id="Pdf">
+        <result column="popen_id" property="open_id"/>
+        <result column="ppdf_id" property="pdf_id"/>
+        <result column="ppdf_url" property="pdf_url"/>
+        <result column="pwq_id" property="wq_id"/>
+    </resultMap>
+    <!--配置查询索引-->
+
+    <insert id="InsertIntoPdf" parameterType="com.mkg.domain.Pdf">
+        insert into pdf(open_id,pdf_url,wq_id) values(#{open_id},#{pdf_url},#{wq_id})
+    </insert>
+
+    <select id="SelectPdf"  parameterType="Map" resultType="com.mkg.domain.Pdf">
+        select  * from pdf where open_id=#{open_id}
+    </select>
+
+    <select id="CheckPdf" parameterType="Map" resultType="com.mkg.domain.Pdf">
+        select * from pdf where open_id=#{open_id} and wq_id=#{wq_id}
+    </select>
+
+</mapper>

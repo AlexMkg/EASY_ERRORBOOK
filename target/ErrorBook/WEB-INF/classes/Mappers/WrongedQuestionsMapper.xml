@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkg.dao.IWrongedQuestionsDao">
+    <resultMap type="com.mkg.domain.WrongedQuestions" id="WrongedQuestions">
+        <id column="wwwq_id" property="wq_id"/>
+        <result column="wwq_id" property="wq_id"/>
+        <result column="wopen_id" property="open_id"/>
+        <result column="wsubject_name" property="subject_name"/>
+        <result column="wquestion_context" property="question_context"/>
+        <result column="wimg_url" property="img_url"/>
+        <result column="wdata_time" property="data_time"/>
+        <result column="wweight" property="weight"/>
+    </resultMap>
+
+    <insert id="InsertIntoWrongedQuestions" parameterType="com.mkg.domain.WrongedQuestions">
+        insert into wrongedquestions(open_id,subject_name,question_context,img_url,data_time,weight)
+            values(#{open_id},#{subject_name},#{question_context},#{img_url},#{data_time},#{weight})
+    </insert>
+
+    <select id="SelectAll" parameterType="Map" resultMap="WrongedQuestions">
+        select * from wrongedquestions where open_id=#{open_id} and subject_name=#{subject_name} order by weight desc
+    </select>
+
+    <select id="SelectWqCounts" parameterType="Map" resultType="int">
+        select count(*) from wrongedquestions where open_id=#{open_id} and subject_name=#{subject_name}
+    </select>
+
+    <delete id="DeleteWq" parameterType="Map">
+        delete from wrongedquestions where open_id=#{open_id} and wq_id=#{wq_id}
+    </delete>
+
+    <select id="SelectWqInfo" parameterType="Map" resultType="com.mkg.domain.WrongedQuestions">
+        select * from wrongedquestions where wq_id=#{wq_id} and open_id=#{open_id}
+    </select>
+
+    <select id="SelectWqId" parameterType="Map" resultType="int">
+        select wq_id from wrongedquestions where open_id=#{open_id} and subject_name=#{subject_name}
+    </select>
+
+    <update id="UpdateWeight" parameterType="Map">
+        update wrongedquestions set weight=weight+1 where wq_id=#{wq_id} and open_id=#{open_id}
+    </update>
+
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkg.dao.IUserDao">
+    <resultMap type="com.mkg.domain.User" id="User">
+        <result column="uopen_id" property="open_id"/>
+        <result column="unick_name" property="nick_name"/>
+    </resultMap>
+    <!--配置查询索引-->
+    <select id="findAll" resultType="com.mkg.domain.User">
+        select * from user
+    </select>
+
+    <insert id="InsertIntoUser" parameterType="com.mkg.domain.User">
+        insert into user values(#{open_id},#{nick_name})
+    </insert>
+
+    <select id="SelectInfoByOpid"  parameterType="java.lang.String" resultType="com.mkg.domain.User">
+        select * from user where open_id=#{open_id}
+    </select>
+
+</mapper>
